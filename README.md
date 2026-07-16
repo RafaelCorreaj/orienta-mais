@@ -6,6 +6,12 @@ O Orienta+ é uma aplicação web gratuita desenvolvida para ajudar jovens de 17
 
 > **Projeto 100% independente** — Backend próprio desenvolvido do zero com Node.js, Express, Prisma e PostgreSQL.
 
+<p align="center">
+  <a href="https://orienta-mais.caffeinehouse.com.br">
+    <img src="https://img.shields.io/badge/🌐_Online-em_branco?style=for-the-badge&label=orienta--mais.caffeinehouse.com.br&labelColor=blue&color=white" alt="Online">
+  </a>
+</p>
+
 ---
 
 ## 📋 Índice
