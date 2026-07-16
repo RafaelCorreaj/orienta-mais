@@ -1,0 +1,46 @@
+{
+  "name": "EncontroMentoria",
+  "type": "object",
+  "properties": {
+    "mentorado_id": {
+      "type": "string",
+      "description": "ID do mentorado"
+    },
+    "usuario_nome": {
+      "type": "string",
+      "description": "Nome do aluno"
+    },
+    "monitor_id": {
+      "type": "string",
+      "description": "ID do monitor"
+    },
+    "data_encontro": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Data e hora do encontro"
+    },
+    "tipo": {
+      "type": "string",
+      "enum": [
+        "Presencial",
+        "WhatsApp",
+        "Videochamada"
+      ],
+      "description": "Tipo do encontro"
+    },
+    "observacoes": {
+      "type": "string",
+      "description": "Observa\u00e7\u00f5es do encontro"
+    },
+    "proximo_passo": {
+      "type": "string",
+      "description": "Pr\u00f3ximo passo definido"
+    }
+  },
+  "required": [
+    "mentorado_id",
+    "data_encontro",
+    "tipo",
+    "observacoes"
+  ]
+}

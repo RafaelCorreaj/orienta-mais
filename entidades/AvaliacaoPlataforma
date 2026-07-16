@@ -1,0 +1,32 @@
+{
+  "name": "AvaliacaoPlataforma",
+  "type": "object",
+  "properties": {
+    "usuario_id": {
+      "type": "string",
+      "description": "ID do aluno"
+    },
+    "nota_utilidade": {
+      "type": "number",
+      "description": "Nota de utilidade (1-5)"
+    },
+    "clareza_diagnostico": {
+      "type": "number",
+      "description": "Nota de clareza do diagn\u00f3stico (1-5)"
+    },
+    "relevancia_cursos": {
+      "type": "number",
+      "description": "Nota de relev\u00e2ncia dos cursos (1-5)"
+    },
+    "comentario": {
+      "type": "string",
+      "description": "Coment\u00e1rio opcional"
+    }
+  },
+  "required": [
+    "usuario_id",
+    "nota_utilidade",
+    "clareza_diagnostico",
+    "relevancia_cursos"
+  ]
+}

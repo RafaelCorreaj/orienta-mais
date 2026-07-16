@@ -1,0 +1,1 @@
+SELECT id, nome, email, status FROM "User";

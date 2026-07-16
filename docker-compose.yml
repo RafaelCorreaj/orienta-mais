@@ -1,0 +1,64 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: orienta-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: orienta_user
+      POSTGRES_PASSWORD: orienta_pass
+      POSTGRES_DB: orienta_mais
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    expose:
+      - "5432"
+    networks:
+      - orienta-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U orienta_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    container_name: orienta-backend
+    restart: always
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      DATABASE_URL: postgresql://orienta_user:orienta_pass@postgres:5432/orienta_mais
+      JWT_SECRET: ${JWT_SECRET:-orienta_jwt_secret_prod_change_me}
+      FRONTEND_URL: ${FRONTEND_URL:-http://${PUBLIC_IP}}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      GOOGLE_CALLBACK_URL: ${GOOGLE_CALLBACK_URL}
+    ports:
+      - "127.0.0.1:3001:3001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - orienta-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    container_name: orienta-frontend
+    restart: always
+    ports:
+      - "127.0.0.1:8080:80"
+    depends_on:
+      - backend
+    networks:
+      - orienta-network
+
+networks:
+  orienta-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local

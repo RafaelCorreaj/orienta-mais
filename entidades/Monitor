@@ -1,0 +1,52 @@
+{
+  "name": "Monitor",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "ID do usu\u00e1rio vinculado"
+    },
+    "nome": {
+      "type": "string",
+      "description": "Nome do monitor"
+    },
+    "email": {
+      "type": "string",
+      "description": "Email do monitor"
+    },
+    "whatsapp": {
+      "type": "string",
+      "description": "WhatsApp do monitor"
+    },
+    "formacao": {
+      "type": "string",
+      "description": "Forma\u00e7\u00e3o (ex: Psicologia, Pedagogia)"
+    },
+    "perfis_disponiveis": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Perfis que o monitor pode atender"
+    },
+    "disponibilidade": {
+      "type": "string",
+      "description": "Hor\u00e1rios dispon\u00edveis"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Ativo",
+        "Inativo"
+      ],
+      "default": "Ativo",
+      "description": "Status do monitor"
+    }
+  },
+  "required": [
+    "nome",
+    "email",
+    "whatsapp",
+    "perfis_disponiveis"
+  ]
+}

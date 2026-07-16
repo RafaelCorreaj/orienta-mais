@@ -1,0 +1,44 @@
+{
+  "name": "FilaMentoria",
+  "type": "object",
+  "properties": {
+    "usuario_id": {
+      "type": "string",
+      "description": "ID do aluno"
+    },
+    "usuario_nome": {
+      "type": "string",
+      "description": "Nome do aluno"
+    },
+    "perfil": {
+      "type": "string",
+      "enum": [
+        "L\u00edder",
+        "Colaborativo",
+        "T\u00e9cnico",
+        "Criativo",
+        "Acad\u00eamico"
+      ],
+      "description": "Perfil do aluno"
+    },
+    "whatsapp_aluno": {
+      "type": "string",
+      "description": "WhatsApp do aluno"
+    },
+    "status_fila": {
+      "type": "string",
+      "enum": [
+        "Aguardando",
+        "Atendido",
+        "Cancelado"
+      ],
+      "default": "Aguardando",
+      "description": "Status na fila"
+    }
+  },
+  "required": [
+    "usuario_id",
+    "perfil",
+    "whatsapp_aluno"
+  ]
+}

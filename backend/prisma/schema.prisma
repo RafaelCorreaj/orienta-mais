@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String              @id @default(cuid())
+  nome            String
+  email           String              @unique
+  senha           String
+  telefone        String?
+  dataNascimento  DateTime?
+  dataCadastro    DateTime            @default(now())
+  status          String              @default("Ativo")
+  isAdmin         Boolean             @default(false)
+
+  diagnosticos    Diagnostico[]
+  filaMentoria    FilaMentoria?
+  mentoradosAluno Mentorado[]         @relation("AlunoMentorado")
+  avaliacoes      AvaliacaoPlataforma[]
+}
+
+model Diagnostico {
+  id               String   @id @default(cuid())
+  usuarioId        String
+  habilidades      String[]
+  interesses       String[]
+  estiloTrabalho   String
+  estiloGrupo      String
+  autoavaliacao    Json
+  sonho            String?
+  querAprender     String?
+  pontuacaoTotal   Int
+  perfilClassificado String
+  dataRealizacao   DateTime @default(now())
+
+  usuario          User     @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+}
+
+model Curso {
+  id                String   @id @default(cuid())
+  nome              String
+  area              String
+  perfisRecomendados String[]
+  cargaHoraria      String
+  plataforma        String
+  link              String
+  certificado       Boolean  @default(false)
+  nivelDificuldade  String
+}
+
+model Monitor {
+  id                 String   @id @default(cuid())
+  nome               String
+  email              String   @unique
+  senha              String
+  whatsapp           String
+  formacao           String
+  perfisDisponiveis  String[]
+  disponibilidade    String
+  dataCadastro       DateTime @default(now())
+  status             String   @default("Ativo")
+
+  mentorados         Mentorado[] @relation("MonitorMentorado")
+}
+
+model FilaMentoria {
+  id               String   @id @default(cuid())
+  usuarioId        String   @unique
+  perfil           String
+  whatsappAluno    String
+  statusFila       String   @default("Aguardando")
+  dataSolicitacao  DateTime @default(now())
+
+  usuario          User     @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+}
+
+model Mentorado {
+  id                String   @id @default(cuid())
+  usuarioId         String
+  monitorId         String
+  dataMatch         DateTime @default(now())
+  status            String   @default("Ativo")
+  dataEncerramento  DateTime?
+  motivoEncerramento String?
+
+  aluno            User     @relation("AlunoMentorado", fields: [usuarioId], references: [id])
+  monitor          Monitor  @relation("MonitorMentorado", fields: [monitorId], references: [id])
+  encontros        EncontroMentoria[]
+}
+
+model EncontroMentoria {
+  id               String   @id @default(cuid())
+  mentoradoId      String
+  dataEncontro     DateTime @default(now())
+  tipo             String
+  observacoes      String
+  proximoPasso     String?
+
+  mentorado        Mentorado @relation(fields: [mentoradoId], references: [id], onDelete: Cascade)
+}
+
+model AvaliacaoPlataforma {
+  id                 String   @id @default(cuid())
+  usuarioId          String
+  notaUtilidade      Int
+  clarezaDiagnostico Int
+  relevanciaCursos   Int
+  comentario         String?
+  dataAvaliacao      DateTime @default(now())
+
+  usuario            User     @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+}

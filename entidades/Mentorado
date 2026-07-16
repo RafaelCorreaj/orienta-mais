@@ -1,0 +1,55 @@
+{
+  "name": "Mentorado",
+  "type": "object",
+  "properties": {
+    "usuario_id": {
+      "type": "string",
+      "description": "ID do aluno"
+    },
+    "usuario_nome": {
+      "type": "string",
+      "description": "Nome do aluno"
+    },
+    "monitor_id": {
+      "type": "string",
+      "description": "ID do registro do monitor"
+    },
+    "monitor_nome": {
+      "type": "string",
+      "description": "Nome do monitor"
+    },
+    "monitor_whatsapp": {
+      "type": "string",
+      "description": "WhatsApp do monitor"
+    },
+    "perfil_aluno": {
+      "type": "string",
+      "enum": [
+        "L\u00edder",
+        "Colaborativo",
+        "T\u00e9cnico",
+        "Criativo",
+        "Acad\u00eamico"
+      ],
+      "description": "Perfil do aluno"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Ativo",
+        "Encerrado"
+      ],
+      "default": "Ativo",
+      "description": "Status do mentorado"
+    },
+    "motivo_encerramento": {
+      "type": "string",
+      "description": "Motivo do encerramento"
+    }
+  },
+  "required": [
+    "usuario_id",
+    "monitor_id",
+    "status"
+  ]
+}
